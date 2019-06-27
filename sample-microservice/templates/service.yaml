@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "sample-microservice.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "sample-microservice.name" . }}
+    helm.sh/chart: {{ include "sample-microservice.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: {{ include "sample-microservice.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}

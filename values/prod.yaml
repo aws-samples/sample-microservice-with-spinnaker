@@ -1,0 +1,10 @@
+replicaCount: 4
+
+image:
+  repository: 107995894928.dkr.ecr.us-west-2.amazonaws.com/sample-microservice
+  tag: latest
+  pullPolicy: Always
+
+service:
+  type: ClusterIP
+  port: 8080
