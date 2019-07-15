@@ -1,14 +1,14 @@
-# A Go multistage docker file
-FROM golang:alpine
-RUN mkdir /build 
-ADD . /build/
-WORKDIR /build 
-RUN go build -o main .
-FROM alpine
-ENV PORT 8080
-EXPOSE 8080
-RUN adduser -S -D -H -h /app appuser
-USER appuser
-COPY --from=0 /build/main /app/
+FROM python:2
+
+# We copy just the requirements.txt first to leverage Docker cache
+COPY requirements.txt /app/requirements.txt
+
 WORKDIR /app
-CMD ["./main"]
+
+RUN pip install -r requirements.txt
+
+COPY app.py /app
+
+ENTRYPOINT [ "python" ]
+
+CMD [ "app.py" ]
