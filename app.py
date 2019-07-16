@@ -3,7 +3,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def main():
-    return 'Release 1.17!'
+    return 'Release 1.18!'
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
